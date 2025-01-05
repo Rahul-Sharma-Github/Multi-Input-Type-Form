@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test1/choicechip_controller.dart';
 import 'package:test1/controller.dart';
 
 import 'package:get/get.dart';
@@ -34,6 +35,10 @@ class HomePage extends StatelessWidget {
   // profile Controller
   final ProfileController profileController = Get.put(ProfileController());
 
+  // choiceChipController
+  final ChoiceChipController choiceChipController =
+      Get.put(ChoiceChipController());
+
   // Global key for Form
   final GlobalKey<FormState> formKey = GlobalKey();
 
@@ -59,6 +64,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 60),
+
             // Name Field
             TextFormField(
               controller: profileController.nameTextEditingController,
@@ -183,6 +189,34 @@ class HomePage extends StatelessWidget {
                     profileController.gender.value = value;
                   }
                 },
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            // Hobbies selection
+            Obx(
+              () => Wrap(
+                children: choiceChipController.choiceList
+                    .map(
+                      (e) => ChoiceChip(
+                        label: Text(e),
+                        selectedColor: Colors.green,
+                        selected:
+                            choiceChipController.selectedChoiceList.contains(e),
+                        onSelected: (value) {
+                          if (value) {
+                            choiceChipController.selectedChoiceList.add(e);
+                            debugPrint('$e = added into selectedChoiceList.');
+                          } else {
+                            choiceChipController.selectedChoiceList
+                                .removeWhere((element) => element == e);
+                            debugPrint('$e = removed from selectedChoiceList.');
+                          }
+                        },
+                      ),
+                    )
+                    .toList(),
               ),
             ),
 

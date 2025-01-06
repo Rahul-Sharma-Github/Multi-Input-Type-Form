@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           children: [
-            SizedBox(height: 40),
+            SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
                 ))),
               ],
             ),
-            SizedBox(height: 60),
+            SizedBox(height: 30),
 
             // Name Field
             TextFormField(
@@ -148,6 +148,11 @@ class HomePage extends StatelessWidget {
                 label: Text('Select Birth Date'),
                 prefixIcon: Icon(Icons.calendar_month),
               ),
+              // to hide keyboard
+              keyboardType: TextInputType.none,
+              showCursor: false,
+              // to prevent keyboard input
+              readOnly: true,
             ),
 
             SizedBox(height: 20),
@@ -194,9 +199,20 @@ class HomePage extends StatelessWidget {
 
             SizedBox(height: 20),
 
+            Row(
+              children: [
+                Expanded(
+                    child: Text(
+                  'Select Hobbies',
+                  style: TextStyle(fontSize: 16.0),
+                ))
+              ],
+            ),
+            SizedBox(height: 10),
             // Hobbies selection
             Obx(
               () => Wrap(
+                spacing: 10,
                 children: choiceChipController.choiceList
                     .map(
                       (e) => ChoiceChip(
@@ -218,6 +234,30 @@ class HomePage extends StatelessWidget {
                     )
                     .toList(),
               ),
+            ),
+
+            SizedBox(height: 20),
+
+            Row(
+              children: [
+                Expanded(
+                    child: Text(
+                  'Enter Description',
+                  style: TextStyle(fontSize: 16.0),
+                ))
+              ],
+            ),
+            SizedBox(height: 10),
+            // Multiline text input
+            TextFormField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(),
+                ),
+                prefixIcon: Icon(Icons.description),
+              ),
+              maxLines: 4,
+              keyboardType: TextInputType.multiline,
             ),
 
             SizedBox(height: 60),
@@ -258,6 +298,7 @@ class HomePage extends StatelessWidget {
                       ),
               ),
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),
